@@ -1,0 +1,89 @@
+keren_danan
+rachel
+328777032
+208287334
+Keren Danan
+Rachel Assael
+
+
+=============================
+=      File description     =
+=============================
+Ex6 - Simplified Java Verifier
+This exercise include the main package which is also divided in few packages such as:
+condition, linesReader, method, scope, simpleObjects,variables.
+linesReader and scope - package are useful for the structure of the file read and call each other during
+the parsing of the file.
+condition, method, simpleObjects and variables - represents data members objects of the sJava file because
+each of them has a specific call in the file.
+In addition, some of the packages contain Exception package that is related to its class and package subject.
+
+
+=============================
+=  Design   =
+=============================
+Creating the data members -
+We decided for - method, variables and simpleObject to create a class or an abstract class that represent
+the object as itself, and then to create a Factory of each that will be useful when parsing the file, and
+moreover, when reading a method and creating its parameters and variables.
+
+Parsing the file-
+#Scope - which is an abstract class, and GlobalScope and InnerScope inherit from it.
+The two classes differ by their constructors and most of all by the fact that an inner scope has a parent
+scope while the global one does not.
+This design helped us for creating the Method lines Scope read during the second parsing.
+
+#LinesReader - This package contains an abstract class ReadOneLine which contains the all regex patterns and
+matchers that are used for reading one line.
+Then, each class corresponds to each line type.
+In addition, there is the package lineException which contains all the exceptions that can occur during the
+reading of one line.
+
+
+=============================
+=  Implementation details   =
+=============================
+Error Handling-
+As described earlier we decided to create for each package inside the main package a package that creates
+exception in case of wrong s-Java code declarations, assignment, format, or call and creations of
+data members.
+For example, in the package variable you can find varExceptions that contain an abstract class that herits
+to other classes of exceptions to type of variable exception.
+We decided to divide the exceptions in that kind of way because we believe that each of them refers to an
+exact type of error when that exception is raised.
+For example, it is normal to put exception in a package inside the linesReader because during the parsing,
+exception of "wrong" format of line can occur/
+
+Program Units-
+As explained earlier in the design sections, we could have divide it differently, like creating
+only one package for parsing the file, and another package of the all structure of the s-java file, but
+we decided it was more easy to create for each data member, reading of file to create a package, because
+each one contains different classes that are not so related to each other and in that way each package has
+something in common and it make it more easy to make changes.
+
+New types of variables discussion-
+1/ Different methods' type (i.e int foo)-
+For this new feature we would have extend the package "Method" and maybe would have change it into an
+abstract class which has herits to other classes according to each type of variable the method returns.
+Than it would not have changed the method factory. Only the package would have been extended.
+Actually the major change would have been the creation of absract class Method and the creation of new method
+which defines the type of the variable returned - as like "checkReturnVar" and each kind of method would have
+implement it different.
+
+2/ Using methods of standard java- (i.e System.out.println)
+For that new feature the change would have been in the LinesReader, we supposed we would add a new Class that
+refers to a line that calls a method.
+Its regex would have been a regex that matches the call as java use (characters, points, and parentheses),
+we would have use the method to check if it indeed is calling valid variable types, and the difference
+of knowing if it is a valid method, like the method isKnownMethod called by the class ReadMethodCall,
+we could check if our program can actually call it without throwing an exception, if it does- would be ok.
+So the change would only be the creation of a class ReadJavaMethod which extends from ReadOneLine.
+
+Regular Expressions -
+In our exercise we used three main methods and classes to match the regular expression:
+We created the regex with the Pattern class with compile method, we created the matcher with the pattern object
+method called matcher and then for different uses, we used matcher.find() and matcher.matches() as explained
+in the TA classes.
+The main regular expressions we used in our code were for finding the call for a new method- which actually
+creates the inner scopes, and the second one is for the declaration or assignment of variables.
+There are all appearing the package linesReader, and are also used in the variable and method classes objects.
